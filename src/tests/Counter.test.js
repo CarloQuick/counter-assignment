@@ -1,22 +1,41 @@
-// import necessary react testing library helpers here
-// import the Counter component here
+import { render, screen, act } from "@testing-library/react";
+import App from "../components/App";
+import Counter from "../components/Counter";
+import userEvent from "@testing-library/user-event";
 
 beforeEach(() => {
   // Render the Counter component here
-})
-
-test('renders counter message', () => {
-  // Complete the unit test below based on the objective in the line above
+  render(<Counter />);
 });
 
-test('should render initial count with value of 0', () => {
-  // Complete the unit test below based on the objective in the line above
+test("renders counter message", () => {
+  const counterMessage = screen.getByText(/Counter/i);
+  expect(counterMessage).toBeInTheDocument();
 });
 
-test('clicking + increments the count', () => {
-  // Complete the unit test below based on the objective in the line above
+test("should render initial count with value of 0", () => {
+  const initCount = screen.getByTestId("count");
+  expect(initCount).toHaveTextContent("0");
 });
 
-test('clicking - decrements the count', () => {
-  // Complete the unit test below based on the objective in the line above
+test("clicking + increments the count", () => {
+  const initCount = screen.getByTestId("count");
+  expect(initCount).toHaveTextContent("0");
+
+  // Increments the count by 3
+  userEvent.click(screen.getByText("+"));
+  userEvent.click(screen.getByText("+"));
+  userEvent.click(screen.getByText("+"));
+  expect(initCount).toHaveTextContent("3");
+});
+
+test("clicking - decrements the count", () => {
+  const initCount = screen.getByTestId("count");
+  expect(initCount).toHaveTextContent("0");
+
+  // Decrements the count by 3
+  userEvent.click(screen.getByText("-"));
+  userEvent.click(screen.getByText("-"));
+  userEvent.click(screen.getByText("-"));
+  expect(initCount).toHaveTextContent("-3");
 });
